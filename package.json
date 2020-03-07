@@ -1,0 +1,24 @@
+{
+  "name": "node-socket",
+  "version": "1.0.0",
+  "description": "Node.JS的自定义TCP协议，实现客户端与服务端数据传输。",
+  "author": "Tensho Chen",
+  "main": "index.js",
+  "types": "./src/@types/index.d.ts",
+  "scripts": {
+    "client:simple": "ts-node --files simpleDemo/client.ts",
+    "server:simple": "ts-node --files simpleDemo/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^13.7.7",
+    "@types/uuid": "^7.0.0",
+    "log4js": "^6.1.2",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  }
+}
