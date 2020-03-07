@@ -6,9 +6,10 @@
   "main": "index.js",
   "types": "./src/@types/index.d.ts",
   "scripts": {
-    "client:simple": "ts-node --files simpleDemo/client.ts",
-    "server:simple": "ts-node --files simpleDemo/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client:example": "ts-node --files example/client.ts",
+    "server:example": "ts-node --files example/server.ts",
+    "client:socks5": "ts-node --files socks5/client.ts",
+    "server:socks5": "ts-node --files socks5/server.ts"
   },
   "license": "ISC",
   "dependencies": {

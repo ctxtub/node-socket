@@ -12,8 +12,8 @@ const loggerServer = logger('Server')
  * @extends {EventEmitter}
  */
 class rpcServer extends EventEmitter {
-  server: net.Server | null;
-  clients: {[propName: string]: rpcSocket};
+  server: net.Server | null
+  clients: {[propName: string]: rpcSocket}
 
   constructor (server?: net.Server) {
     super()
@@ -84,8 +84,13 @@ class rpcServer extends EventEmitter {
    * @memberof rpcServer
    */
   write (id: string, message: object) {
-    this.clients[id].write(message)
-    loggerServer.trace(`给客户端 ${id} 发送消息 ->`, JSON.stringify(message))
+    const socket = this.clients[id]
+    if (socket) {
+      this.clients[id].write(message)
+      loggerServer.trace(`向客户端 ${id} 发送数据 ->`, JSON.stringify(message))
+    } else {
+      loggerServer.warn(`客户端 ${id} 已关闭连接，取消数据发送`)
+    }
   }
 
   /**

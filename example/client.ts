@@ -6,13 +6,13 @@ const client = new rpcClient()
 client.connect({port: 8000, host: 'localhost'})
 
 // client连接成功事件监听
-client.on('connect', () => console.log('client 连接服务器成功'))
+client.once('connect', () => console.log('client 连接服务器成功'))
 
 // client报错事件监听
-client.on('error', (err: Error) => console.log(`client 报错啦：${err}`))
+client.once('error', (err: Error) => console.log(`client 报错啦：${err}`))
 
 // client关闭事件监听
-client.on('close', (err: Error) => console.log('client 连接中断'))
+client.once('close', (err: Error) => console.log('client 连接中断'))
 
 // client接收消息事件监听
 client.on('payload', ({error, id, data}) => {

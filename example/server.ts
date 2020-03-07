@@ -6,10 +6,10 @@ const server = new rpcServer()
 server.listen()
 
 // server报错事件监听
-server.on('error', (err: Error) => console.log(`server 报错啦：${err}`))
+server.once('error', (err: Error) => console.log(`server 报错啦：${err}`))
 
 // server关闭事件监听
-server.on('close', () => console.log('server 已关闭'))
+server.once('close', () => console.log('server 已关闭'))
 
 // server接收消息事件监听
 server.on('payload', ({error, id, data}) => {

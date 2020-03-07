@@ -14,8 +14,8 @@ const loggerSocket = logger('Socket')
  * @extends {EventEmitter}
  */
 class rpcSocket extends EventEmitter {
-  socket: Socket | customSocket;
-  receviedBuffer: Buffer;
+  socket: Socket | customSocket
+  receviedBuffer: Buffer
 
   constructor (socket?: customSocket) {
     super()

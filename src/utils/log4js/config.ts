@@ -29,17 +29,32 @@ module.exports = {
     // Socket
     Socket: {
       appenders: ['default'],
-      level: 'debug'
+      level: 'info'
     },
     // serialize
     serialize: {
       appenders: ['default'],
-      level: 'debug'
+      level: 'info'
     },
     // deserialize
     deserialize: {
       appenders: ['default'],
-      level: 'debug'
+      level: 'info'
+    },
+    // SockServer
+    Socks5Server: {
+      appenders: ['default'],
+      level: 'info'
+    },
+    // socks5-server over node-socket
+    client4Socks5: {
+      appenders: ['default'],
+      level: 'info'
+    },
+    // server for socks5-server
+    server4Socks5: {
+      appenders: ['default'],
+      level: 'info'
     }
   },
   // 支持pm2
