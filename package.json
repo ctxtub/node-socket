@@ -15,7 +15,7 @@
   "dependencies": {
     "@types/node": "^13.7.7",
     "@types/uuid": "^7.0.0",
-    "log4js": "^6.1.2",
+    "log4js": "^6.4.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
