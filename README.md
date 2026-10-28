@@ -100,3 +100,14 @@ npm run client:socks5    // 客户端
             |-- config.ts
             |-- index.ts
 ```
+## 固定上游反向隧道
+
+`reverse/tunnel.cjs` 是独立于原 SOCKS5 协议的反向 TCP 隧道，运行于 Node.js 22.16 或更新版本。客户端主动连接云端，云端提供仅监听 `127.0.0.1` 的入口，适用于本机 HTTP 或 WebSocket 上游。TLS 双向认证需要专用 CA、服务端证书和客户端证书；请妥善保护私钥并定期轮换。此隧道本身不提供浏览器登录、HTTP 限流或公网 HTTPS，必须由反向代理另行配置。
+
+云端环境变量：`TUNNEL_MODE=server`、`TUNNEL_KEY`、`TUNNEL_CERT`、`TUNNEL_CA`，可选 `TUNNEL_TLS_HOST`（默认 `0.0.0.0`）、`TUNNEL_TLS_PORT`（默认 9443）、`TUNNEL_LISTEN_PORT`（默认 18082）。私钥和证书变量均为绝对文件路径。云端 TCP 入口固定为回环地址，不能配置成公网监听。
+
+本机环境变量：`TUNNEL_MODE=client`、`TUNNEL_KEY`、`TUNNEL_CERT`、`TUNNEL_CA`、`TUNNEL_SERVER_HOST`、`TUNNEL_SERVER_NAME`；可选 `TUNNEL_TLS_PORT`、`TUNNEL_TARGET_PORT`（默认 18080）。服务端名称必须匹配其证书，目标固定为本机回环地址。启动命令为 `npm run reverse`。连接断开后客户端会重新连接；未连接或等待队列满时入口连接会关闭。独立运行所需的 Node 原生模块不依赖 npm 包。
+
+使用 `npm run typecheck` 检查原项目类型，`npm test` 运行本地回环与证书认证测试。旧 SOCKS5 实现不是公网加密隧道，应独立限制其监听与访问。
+
+旧 RPC 和 SOCKS5 监听器默认只绑定 `127.0.0.1`；需要自定义监听地址时，可在程序中调用 `listen(port, host)`。旧协议本身没有认证或加密，请仅在受保护的网络中使用。

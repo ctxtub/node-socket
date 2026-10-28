@@ -1,5 +1,5 @@
 import net from 'net'
-import uuid from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import { EventEmitter } from 'events'
 import rpcSocket from './client'
 import logger from './utils/log4js'
@@ -32,13 +32,13 @@ class rpcServer extends EventEmitter {
    * @param {number} port 监听端口
    * @memberof rpcServer
    */
-  listen (port?: number) {
-    this.server = net.createServer().listen(port || 8000)
+  listen (port?: number, host: string = '127.0.0.1') {
+    this.server = net.createServer().listen(port ?? 8000, host)
     this.server.on('connection', this._connection)
     this.server.on('error', this.onError)
     this.server.on('close', this.onClose)
 
-    loggerServer.info(`服务端初始化监听 -> port: ${port || 8000}`)
+    loggerServer.info(`服务端初始化监听 -> host: ${host}, port: ${port ?? 8000}`)
   }
 
   /**
@@ -49,7 +49,7 @@ class rpcServer extends EventEmitter {
    */
   _connection (socket: customSocket) {
     // 生成客户端UUID
-    socket.id = uuid.v4()
+    socket.id = uuidv4()
     const instance = new rpcSocket(socket)
     // 连接池中登记客户端
     this.clients[socket.id] = instance
